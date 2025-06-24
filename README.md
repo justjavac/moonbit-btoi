@@ -294,5 +294,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Acknowledgments
 
-This library is inspired by the Rust [`btoi`](https://github.com/alkis/btoi)
+This library is inspired by the Rust [`btoi`](https://github.com/niklasf/rust-btoi)
 crate, providing similar functionality for the MoonBit ecosystem.

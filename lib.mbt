@@ -1,3 +1,6 @@
+// This file is port from https://github.com/niklasf/rust-btoi/blob/b8cb1769b8cd9c4c4c90836384fa730a50365ec3/src/lib.rs
+// Copyright Apache-2.0 niklasf. All rights reserved.
+
 /// Parse integers from ASCII byte arrays.
 ///
 /// Provides functions similar to parsing from strings, but is faster when
