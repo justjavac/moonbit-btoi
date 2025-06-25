@@ -1,0 +1,41 @@
+package "justjavac/btoi"
+
+// Values
+fn btoi(Array[Byte]) -> Result[Int, ParseIntegerError]
+
+fn btoi_from_string(String) -> Result[Int, ParseIntegerError]
+
+fn btoi_radix(Array[Byte], Int) -> Result[Int, ParseIntegerError]
+
+fn btoi_radix_from_string(String, Int) -> Result[Int, ParseIntegerError]
+
+fn btoi_saturating(Array[Byte]) -> Result[Int, ParseIntegerError]
+
+fn btoi_saturating_radix(Array[Byte], Int) -> Result[Int, ParseIntegerError]
+
+fn btou(Array[Byte]) -> Result[UInt, ParseIntegerError]
+
+fn btou_from_string(String) -> Result[UInt, ParseIntegerError]
+
+fn btou_radix(Array[Byte], Int) -> Result[UInt, ParseIntegerError]
+
+fn btou_radix_from_string(String, Int) -> Result[UInt, ParseIntegerError]
+
+fn btou_saturating(Array[Byte]) -> Result[UInt, ParseIntegerError]
+
+fn btou_saturating_radix(Array[Byte], Int) -> Result[UInt, ParseIntegerError]
+
+// Types and methods
+pub enum ParseIntegerError {
+  Empty
+  InvalidDigit
+  PosOverflow
+  NegOverflow
+}
+impl Eq for ParseIntegerError
+impl Show for ParseIntegerError
+
+// Type aliases
+
+// Traits
+
