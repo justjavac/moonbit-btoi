@@ -12,7 +12,8 @@
 /// - `btoi(b"42".to_array())` returns `Ok(42)`
 /// - `btoi(b"-1000".to_array())` returns `Ok(-1000)`
 
-///| Error that can occur when trying to parse an integer.
+///|
+/// Error that can occur when trying to parse an integer.
 pub enum ParseIntegerError {
   /// Cannot parse integer without digits.
   Empty
@@ -24,7 +25,8 @@ pub enum ParseIntegerError {
   NegOverflow
 } derive(Eq, Show)
 
-///| Convert a character to its digit value in the given radix.
+///|
+/// Convert a character to its digit value in the given radix.
 /// Returns None if the character is not a valid digit in the radix.
 fn char_to_digit(ch : Char, radix : Int) -> Int? {
   let code = ch.to_int()
@@ -47,7 +49,8 @@ fn char_to_digit(ch : Char, radix : Int) -> Int? {
   }
 }
 
-///| Create a subarray from bytes starting at given position
+///|
+/// Create a subarray from bytes starting at given position
 fn slice_bytes(bytes : Array[Byte], start : Int) -> Array[Byte] {
   let length = bytes.length() - start
   let result = Array::make(length, b'\x00')
@@ -57,7 +60,8 @@ fn slice_bytes(bytes : Array[Byte], start : Int) -> Array[Byte] {
   result
 }
 
-///| Converts a byte array in a given base to an unsigned integer.
+///|
+/// Converts a byte array in a given base to an unsigned integer.
 /// Signs are not allowed.
 ///
 /// # Errors
@@ -74,7 +78,7 @@ fn slice_bytes(bytes : Array[Byte], start : Int) -> Array[Byte] {
 /// Panics if radix is not in the range 2..=36.
 pub fn btou_radix(
   bytes : Array[Byte],
-  radix : Int
+  radix : Int,
 ) -> Result[UInt, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
@@ -109,17 +113,19 @@ pub fn btou_radix(
   Ok(result)
 }
 
-///| Converts a byte array to an unsigned integer. Signs are not allowed.
+///|
+/// Converts a byte array to an unsigned integer. Signs are not allowed.
 pub fn btou(bytes : Array[Byte]) -> Result[UInt, ParseIntegerError] {
   btou_radix(bytes, 10)
 }
 
-///| Converts a byte array in a given base to a signed integer.
+///|
+/// Converts a byte array in a given base to a signed integer.
 ///
 /// Numbers may optionally start with a sign (- or +).
 pub fn btoi_radix(
   bytes : Array[Byte],
-  radix : Int
+  radix : Int,
 ) -> Result[Int, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
@@ -170,18 +176,20 @@ pub fn btoi_radix(
   }
 }
 
-///| Converts a byte array to a signed integer.
+///|
+/// Converts a byte array to a signed integer.
 ///
 /// Numbers may optionally start with a sign (- or +).
 pub fn btoi(bytes : Array[Byte]) -> Result[Int, ParseIntegerError] {
   btoi_radix(bytes, 10)
 }
 
-///| Converts a byte array in a given base to the closest possible unsigned integer.
+///|
+/// Converts a byte array in a given base to the closest possible unsigned integer.
 /// Signs are not allowed. Uses saturating arithmetic for overflow handling.
 pub fn btou_saturating_radix(
   bytes : Array[Byte],
-  radix : Int
+  radix : Int,
 ) -> Result[UInt, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
@@ -216,17 +224,19 @@ pub fn btou_saturating_radix(
   Ok(result)
 }
 
-///| Converts a byte array to the closest possible unsigned integer.
+///|
+/// Converts a byte array to the closest possible unsigned integer.
 /// Signs are not allowed. Uses saturating arithmetic for overflow handling.
 pub fn btou_saturating(bytes : Array[Byte]) -> Result[UInt, ParseIntegerError] {
   btou_saturating_radix(bytes, 10)
 }
 
-///| Converts a byte array in a given base to the closest possible signed integer.
+///|
+/// Converts a byte array in a given base to the closest possible signed integer.
 /// Uses saturating arithmetic for overflow handling.
 pub fn btoi_saturating_radix(
   bytes : Array[Byte],
-  radix : Int
+  radix : Int,
 ) -> Result[Int, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
@@ -272,7 +282,8 @@ pub fn btoi_saturating_radix(
   }
 }
 
-///| Converts a byte array to the closest possible signed integer.
+///|
+/// Converts a byte array to the closest possible signed integer.
 /// Uses saturating arithmetic for overflow handling.
 pub fn btoi_saturating(bytes : Array[Byte]) -> Result[Int, ParseIntegerError] {
   btoi_saturating_radix(bytes, 10)
@@ -293,7 +304,7 @@ pub fn btou_from_string(s : String) -> Result[UInt, ParseIntegerError] {
 ///|
 pub fn btoi_radix_from_string(
   s : String,
-  radix : Int
+  radix : Int,
 ) -> Result[Int, ParseIntegerError] {
   btoi_radix(s.to_bytes().to_array(), radix)
 }
@@ -301,7 +312,7 @@ pub fn btoi_radix_from_string(
 ///|
 pub fn btou_radix_from_string(
   s : String,
-  radix : Int
+  radix : Int,
 ) -> Result[UInt, ParseIntegerError] {
   btou_radix(s.to_bytes().to_array(), radix)
 }
