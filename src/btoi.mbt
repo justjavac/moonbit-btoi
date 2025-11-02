@@ -293,12 +293,12 @@ pub fn btoi_saturating(bytes : Array[Byte]) -> Result[Int, ParseIntegerError] {
 
 ///|
 pub fn btoi_from_string(s : String) -> Result[Int, ParseIntegerError] {
-  btoi(s.to_bytes().to_array())
+  btoi(@encoding/utf8.encode(s).to_array())
 }
 
 ///|
 pub fn btou_from_string(s : String) -> Result[UInt, ParseIntegerError] {
-  btou(s.to_bytes().to_array())
+  btou(@encoding/utf8.encode(s).to_array())
 }
 
 ///|
@@ -306,7 +306,7 @@ pub fn btoi_radix_from_string(
   s : String,
   radix : Int,
 ) -> Result[Int, ParseIntegerError] {
-  btoi_radix(s.to_bytes().to_array(), radix)
+  btoi_radix(@encoding/utf8.encode(s).to_array(), radix)
 }
 
 ///|
@@ -314,5 +314,5 @@ pub fn btou_radix_from_string(
   s : String,
   radix : Int,
 ) -> Result[UInt, ParseIntegerError] {
-  btou_radix(s.to_bytes().to_array(), radix)
+  btou_radix(@encoding/utf8.encode(s).to_array(), radix)
 }
