@@ -1,3 +1,4 @@
+// Generated using `moon info`, DON'T EDIT IT
 package "justjavac/btoi"
 
 // Values
@@ -24,6 +25,8 @@ fn btou_radix_from_string(String, Int) -> Result[UInt, ParseIntegerError]
 fn btou_saturating(Array[Byte]) -> Result[UInt, ParseIntegerError]
 
 fn btou_saturating_radix(Array[Byte], Int) -> Result[UInt, ParseIntegerError]
+
+// Errors
 
 // Types and methods
 pub enum ParseIntegerError {
