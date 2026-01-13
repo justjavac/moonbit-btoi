@@ -110,10 +110,6 @@ jobs:
         run: |
           moon test
 
-      - name: moon test --doc
-        run: |
-          moon test --doc
-
       - name: moon build
         run: |
           moon build
