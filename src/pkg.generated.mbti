@@ -2,29 +2,29 @@
 package "justjavac/btoi"
 
 // Values
-fn btoi(Array[Byte]) -> Result[Int, ParseIntegerError]
+pub fn btoi(Array[Byte]) -> Result[Int, ParseIntegerError]
 
-fn btoi_from_string(String) -> Result[Int, ParseIntegerError]
+pub fn btoi_from_string(String) -> Result[Int, ParseIntegerError]
 
-fn btoi_radix(Array[Byte], Int) -> Result[Int, ParseIntegerError]
+pub fn btoi_radix(Array[Byte], Int) -> Result[Int, ParseIntegerError]
 
-fn btoi_radix_from_string(String, Int) -> Result[Int, ParseIntegerError]
+pub fn btoi_radix_from_string(String, Int) -> Result[Int, ParseIntegerError]
 
-fn btoi_saturating(Array[Byte]) -> Result[Int, ParseIntegerError]
+pub fn btoi_saturating(Array[Byte]) -> Result[Int, ParseIntegerError]
 
-fn btoi_saturating_radix(Array[Byte], Int) -> Result[Int, ParseIntegerError]
+pub fn btoi_saturating_radix(Array[Byte], Int) -> Result[Int, ParseIntegerError]
 
-fn btou(Array[Byte]) -> Result[UInt, ParseIntegerError]
+pub fn btou(Array[Byte]) -> Result[UInt, ParseIntegerError]
 
-fn btou_from_string(String) -> Result[UInt, ParseIntegerError]
+pub fn btou_from_string(String) -> Result[UInt, ParseIntegerError]
 
-fn btou_radix(Array[Byte], Int) -> Result[UInt, ParseIntegerError]
+pub fn btou_radix(Array[Byte], Int) -> Result[UInt, ParseIntegerError]
 
-fn btou_radix_from_string(String, Int) -> Result[UInt, ParseIntegerError]
+pub fn btou_radix_from_string(String, Int) -> Result[UInt, ParseIntegerError]
 
-fn btou_saturating(Array[Byte]) -> Result[UInt, ParseIntegerError]
+pub fn btou_saturating(Array[Byte]) -> Result[UInt, ParseIntegerError]
 
-fn btou_saturating_radix(Array[Byte], Int) -> Result[UInt, ParseIntegerError]
+pub fn btou_saturating_radix(Array[Byte], Int) -> Result[UInt, ParseIntegerError]
 
 // Errors
 
@@ -35,8 +35,8 @@ pub enum ParseIntegerError {
   PosOverflow
   NegOverflow
 }
-impl Eq for ParseIntegerError
-impl Show for ParseIntegerError
+pub impl Eq for ParseIntegerError
+pub impl Show for ParseIntegerError
 
 // Type aliases
 
