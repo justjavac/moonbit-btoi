@@ -1,7 +1,7 @@
 {
   "name": "justjavac/btoi",
-  "version": "0.1.6",
-  "readme": "README.md",
+  "version": "0.1.7",
+  "readme": "README.mbt.md",
   "repository": "https://github.com/justjavac/moonbit-btoi",
   "license": "MIT",
   "keywords": [
@@ -11,6 +11,6 @@
     "bytes",
     "utility"
   ],
-  "description": "an utility for converting bytes to integers",
+  "description": "a utility for converting ASCII bytes to integers",
   "source": "src"
 }

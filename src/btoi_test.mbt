@@ -147,7 +147,7 @@ test "saturating overflow tests" {
       b"999999999999999999999999999999".to_array(),
       10,
     ) {
-    Ok(val) => assert_eq(val, @uint.max_value)
+    Ok(val) => assert_eq(val, @uint.MAX_VALUE)
     _ => abort("Expected saturating to max value")
   }
 
@@ -157,7 +157,7 @@ test "saturating overflow tests" {
       b"999999999999999999999999999999".to_array(),
       10,
     ) {
-    Ok(val) => assert_eq(val, @int.max_value)
+    Ok(val) => assert_eq(val, @int.MAX_VALUE)
     _ => abort("Expected saturating to max value")
   }
   match
@@ -165,7 +165,7 @@ test "saturating overflow tests" {
       b"-999999999999999999999999999999".to_array(),
       10,
     ) {
-    Ok(val) => assert_eq(val, @int.min_value)
+    Ok(val) => assert_eq(val, @int.MIN_VALUE)
     _ => abort("Expected saturating to min value")
   }
 
@@ -175,7 +175,7 @@ test "saturating overflow tests" {
       b"+999999999999999999999999999999".to_array(),
       10,
     ) {
-    Ok(val) => assert_eq(val, @int.max_value)
+    Ok(val) => assert_eq(val, @int.MAX_VALUE)
     _ => abort("Expected saturating to max value with + sign")
   }
 }
@@ -389,7 +389,7 @@ test "extreme coverage scenarios" {
 
   // Test special handling logic of Int::min_value
   match @btoi.btoi_radix(b"-9223372036854775808".to_array(), 10) {
-    Ok(val) => assert_eq(val, @int.min_value)
+    Ok(val) => assert_eq(val, @int.MIN_VALUE)
     Err(NegOverflow) => () // may also overflow, depends on implementation
     _ => abort("Unexpected error for min value")
   }
@@ -525,7 +525,7 @@ test "ultimate coverage test" {
   // 7. Test special case of negative branch in btoi_radix
   // Construct a negative number that equals Int::max_value + 1 to trigger special handling
   match @btoi.btoi_radix(b"-9223372036854775808".to_array(), 10) {
-    Ok(val) => assert_eq(val, @int.min_value) // trigger special Int::min_value handling
+    Ok(val) => assert_eq(val, @int.MIN_VALUE) // trigger special Int::min_value handling
     Err(NegOverflow) => () // may also overflow, depends on specific implementation
     _ => abort("Unexpected error for min value")
   }
@@ -536,7 +536,7 @@ test "ultimate coverage test" {
       b"99999999999999999999999999999999999".to_array(),
       10,
     ) {
-    Ok(val) => assert_eq(val, @int.max_value) // trigger saturation to max value
+    Ok(val) => assert_eq(val, @int.MAX_VALUE) // trigger saturation to max value
     _ => abort("Saturating should not fail")
   }
   match
@@ -544,7 +544,7 @@ test "ultimate coverage test" {
       b"-99999999999999999999999999999999999".to_array(),
       10,
     ) {
-    Ok(val) => assert_eq(val, @int.min_value) // trigger saturation to min value
+    Ok(val) => assert_eq(val, @int.MIN_VALUE) // trigger saturation to min value
     _ => abort("Saturating should not fail")
   }
 
@@ -554,7 +554,7 @@ test "ultimate coverage test" {
       b"99999999999999999999999999999999999".to_array(),
       10,
     ) {
-    Ok(val) => assert_eq(val, @uint.max_value) // trigger saturation to max value
+    Ok(val) => assert_eq(val, @uint.MAX_VALUE) // trigger saturation to max value
     _ => abort("Saturating should not fail")
   }
 }

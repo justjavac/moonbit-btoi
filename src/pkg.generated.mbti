@@ -34,9 +34,7 @@ pub enum ParseIntegerError {
   InvalidDigit
   PosOverflow
   NegOverflow
-}
-pub impl Eq for ParseIntegerError
-pub impl Show for ParseIntegerError
+} derive(Eq, Show)
 
 // Type aliases
 
