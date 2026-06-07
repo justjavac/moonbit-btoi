@@ -26,7 +26,7 @@ pub enum ParseIntegerError {
   PosOverflow
   /// Integer too small to fit in target type.
   NegOverflow
-} derive(Eq, Show)
+} derive(Eq, Debug)
 
 ///|
 /// Map an ASCII character to a digit value for the chosen radix.
