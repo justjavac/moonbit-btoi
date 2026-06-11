@@ -58,6 +58,32 @@ jobs:
         run: |
           moon build
 
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+
+      - name: moon update
+        run: moon update
+
+      - name: Generate coverage report
+        run: |
+          moon coverage clean
+          moon test --target native --enable-coverage
+          moon coverage analyze -p justjavac/btoi -- -f cobertura -o coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage.xml
+          name: coverage
+          disable_search: true
+
   nightly:
     strategy:
       matrix:

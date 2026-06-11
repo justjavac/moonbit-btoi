@@ -1,5 +1,8 @@
 # moonbit-btoi
 
+[![ci](https://github.com/justjavac/moonbit-btoi/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/justjavac/moonbit-btoi/actions/workflows/ci.yml)
+[![coverage](https://img.shields.io/codecov/c/github/justjavac/moonbit-btoi/main?label=coverage)](https://codecov.io/gh/justjavac/moonbit-btoi)
+
 Parse integers from ASCII byte arrays in MoonBit.
 
 This library provides functions similar to Rust's `btoi` crate, offering fast
