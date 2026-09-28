@@ -27,6 +27,8 @@ pub enum ParseIntegerError {
   /// Integer too small to fit in target type.
   NegOverflow
 } derive(Eq, Debug)
+pub extend ParseIntegerError with Eq::{not_equal, equal}
+pub extend ParseIntegerError with @moonbitlang/core/debug.Debug::{to_repr}
 
 ///|
 /// Map an ASCII character to a digit value for the chosen radix.
