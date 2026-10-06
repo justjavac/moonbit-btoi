@@ -331,9 +331,7 @@ pub fn btoi_saturating_radix(
     match btou_saturating_radix(digits, radix) {
       Ok(val) => {
         let uint_val = val
-        if uint_val > @int.MAX_VALUE.reinterpret_as_uint() + 1 {
-          Ok(@int.MIN_VALUE)
-        } else if uint_val == @int.MAX_VALUE.reinterpret_as_uint() + 1 {
+        if uint_val >= @int.MAX_VALUE.reinterpret_as_uint() + 1 {
           Ok(@int.MIN_VALUE)
         } else {
           Ok(-uint_val.reinterpret_as_int())
