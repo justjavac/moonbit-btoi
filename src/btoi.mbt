@@ -27,12 +27,16 @@ pub enum ParseIntegerError {
   /// Integer too small to fit in target type.
   NegOverflow
 } derive(Eq, Debug)
+
+///|
 pub extend ParseIntegerError with Eq::{not_equal, equal}
+
+///|
 pub extend ParseIntegerError with @moonbitlang/core/debug.Debug::{to_repr}
 
 ///|
 /// Map an ASCII character to a digit value for the chosen radix.
-fn char_to_digit(ch : Char, radix : Int) -> Int? {
+fn char_to_digit(ch : Char, radix : Int32) -> Int32? {
   let code = ch.to_int()
   let digit = if code >= 48 && code <= 57 {
     // '0' to '9'
@@ -55,7 +59,7 @@ fn char_to_digit(ch : Char, radix : Int) -> Int? {
 
 ///|
 /// Copy bytes starting at `start` into a fresh array.
-fn slice_bytes(bytes : Array[Byte], start : Int) -> Array[Byte] {
+fn slice_bytes(bytes : Array[Byte], start : Int32) -> Array[Byte] {
   let length = bytes.length() - start
   let result = Array::make(length, b'\x00')
   for i = 0; i < length; i = i + 1 {
@@ -84,19 +88,19 @@ fn slice_bytes(bytes : Array[Byte], start : Int) -> Array[Byte] {
 /// ```
 pub fn btou_radix(
   bytes : Array[Byte],
-  radix : Int,
-) -> Result[UInt, ParseIntegerError] {
+  radix : Int32,
+) -> Result[UInt32, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
   }
   if bytes.length() == 0 {
     return Err(Empty)
   }
-  let mut result : UInt = 0
+  let mut result : UInt32 = 0
   let base = radix.reinterpret_as_uint()
   for i = 0; i < bytes.length(); i = i + 1 {
     let byte = bytes[i]
-    let ch = Int::unsafe_to_char(byte.to_int())
+    let ch = Int32::unsafe_to_char(byte.to_int())
     match char_to_digit(ch, radix) {
       Some(digit) => {
         let digit_val = digit.reinterpret_as_uint()
@@ -132,7 +136,7 @@ pub fn btou_radix(
 /// assert_eq(btou(b"0007".to_array()), Ok(7))
 /// assert_eq(btou(b"-1".to_array()), Err(InvalidDigit))
 /// ```
-pub fn btou(bytes : Array[Byte]) -> Result[UInt, ParseIntegerError] {
+pub fn btou(bytes : Array[Byte]) -> Result[UInt32, ParseIntegerError] {
   btou_radix(bytes, 10)
 }
 
@@ -156,8 +160,8 @@ pub fn btou(bytes : Array[Byte]) -> Result[UInt, ParseIntegerError] {
 /// ```
 pub fn btoi_radix(
   bytes : Array[Byte],
-  radix : Int,
-) -> Result[Int, ParseIntegerError] {
+  radix : Int32,
+) -> Result[Int32, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
   }
@@ -217,7 +221,7 @@ pub fn btoi_radix(
 /// assert_eq(btoi(b"-42".to_array()), Ok(-42))
 /// assert_eq(btoi(b"12x".to_array()), Err(InvalidDigit))
 /// ```
-pub fn btoi(bytes : Array[Byte]) -> Result[Int, ParseIntegerError] {
+pub fn btoi(bytes : Array[Byte]) -> Result[Int32, ParseIntegerError] {
   btoi_radix(bytes, 10)
 }
 
@@ -240,19 +244,19 @@ pub fn btoi(bytes : Array[Byte]) -> Result[Int, ParseIntegerError] {
 /// ```
 pub fn btou_saturating_radix(
   bytes : Array[Byte],
-  radix : Int,
-) -> Result[UInt, ParseIntegerError] {
+  radix : Int32,
+) -> Result[UInt32, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
   }
   if bytes.length() == 0 {
     return Err(Empty)
   }
-  let mut result : UInt = 0
+  let mut result : UInt32 = 0
   let base = radix.reinterpret_as_uint()
   for i = 0; i < bytes.length(); i = i + 1 {
     let byte = bytes[i]
-    let ch = Int::unsafe_to_char(byte.to_int())
+    let ch = Int32::unsafe_to_char(byte.to_int())
     match char_to_digit(ch, radix) {
       Some(digit) => {
         let digit_val = digit.reinterpret_as_uint()
@@ -286,7 +290,9 @@ pub fn btou_saturating_radix(
 /// assert_eq(btou_saturating(b"42".to_array()), Ok(42))
 /// assert_eq(btou_saturating(b"999999999999999999999999".to_array()), Ok(@uint.MAX_VALUE))
 /// ```
-pub fn btou_saturating(bytes : Array[Byte]) -> Result[UInt, ParseIntegerError] {
+pub fn btou_saturating(
+  bytes : Array[Byte],
+) -> Result[UInt32, ParseIntegerError] {
   btou_saturating_radix(bytes, 10)
 }
 
@@ -310,8 +316,8 @@ pub fn btou_saturating(bytes : Array[Byte]) -> Result[UInt, ParseIntegerError] {
 /// ```
 pub fn btoi_saturating_radix(
   bytes : Array[Byte],
-  radix : Int,
-) -> Result[Int, ParseIntegerError] {
+  radix : Int32,
+) -> Result[Int32, ParseIntegerError] {
   if radix < 2 || radix > 36 {
     abort("radix must lie in the range 2..=36")
   }
@@ -365,7 +371,7 @@ pub fn btoi_saturating_radix(
 /// assert_eq(btoi_saturating(b"-42".to_array()), Ok(-42))
 /// assert_eq(btoi_saturating(b"-999999999999999999999999".to_array()), Ok(@int.MIN_VALUE))
 /// ```
-pub fn btoi_saturating(bytes : Array[Byte]) -> Result[Int, ParseIntegerError] {
+pub fn btoi_saturating(bytes : Array[Byte]) -> Result[Int32, ParseIntegerError] {
   btoi_saturating_radix(bytes, 10)
 }
 
@@ -383,7 +389,7 @@ pub fn btoi_saturating(bytes : Array[Byte]) -> Result[Int, ParseIntegerError] {
 /// assert_eq(btoi_from_string("-42"), Ok(-42))
 /// assert_eq(btoi_from_string("42x"), Err(InvalidDigit))
 /// ```
-pub fn btoi_from_string(s : String) -> Result[Int, ParseIntegerError] {
+pub fn btoi_from_string(s : String) -> Result[Int32, ParseIntegerError] {
   btoi(@utf8.encode(s).to_array())
 }
 
@@ -398,7 +404,7 @@ pub fn btoi_from_string(s : String) -> Result[Int, ParseIntegerError] {
 /// assert_eq(btou_from_string("42"), Ok(42))
 /// assert_eq(btou_from_string("-42"), Err(InvalidDigit))
 /// ```
-pub fn btou_from_string(s : String) -> Result[UInt, ParseIntegerError] {
+pub fn btou_from_string(s : String) -> Result[UInt32, ParseIntegerError] {
   btou(@utf8.encode(s).to_array())
 }
 
@@ -415,8 +421,8 @@ pub fn btou_from_string(s : String) -> Result[UInt, ParseIntegerError] {
 /// ```
 pub fn btoi_radix_from_string(
   s : String,
-  radix : Int,
-) -> Result[Int, ParseIntegerError] {
+  radix : Int32,
+) -> Result[Int32, ParseIntegerError] {
   btoi_radix(@utf8.encode(s).to_array(), radix)
 }
 
@@ -433,7 +439,7 @@ pub fn btoi_radix_from_string(
 /// ```
 pub fn btou_radix_from_string(
   s : String,
-  radix : Int,
-) -> Result[UInt, ParseIntegerError] {
+  radix : Int32,
+) -> Result[UInt32, ParseIntegerError] {
   btou_radix(@utf8.encode(s).to_array(), radix)
 }
