@@ -33,10 +33,9 @@ jobs:
         run: |
           moon version --all
 
-      - name: moon install
+      - name: moon update
         run: |
           moon update
-          moon install
 
       - name: moon info
         run: |
@@ -115,10 +114,9 @@ jobs:
         run: |
           moon version --all
 
-      - name: moon install
+      - name: moon update
         run: |
           moon update
-          moon install
 
       - name: moon info
         run: |
@@ -128,7 +126,9 @@ jobs:
       - name: moon check
         run: moon check --deny-warn
 
+      # Nightly toolchain: moon fmt --check still fails on Windows (upstream extended-length path bug).
       - name: format check
+        if: ${{ matrix.os != 'windows-latest' }}
         run: |
           moon fmt --check
 
